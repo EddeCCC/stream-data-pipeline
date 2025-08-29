@@ -1,6 +1,9 @@
 # Stream Data Pipeline
 
-Showcase for streaming data pipelines with ...
+Showcase for ELT data pipelines with streaming data via Kafka & Spark as well as
+DuckDB, dbt, Apache Airflow and Superset.
+
+The data is provided by [Wikimedia](https://wikitech.wikimedia.org/wiki/Event_Platform/EventStreams_HTTP_Service).
 
 ## Prerequisites
 
