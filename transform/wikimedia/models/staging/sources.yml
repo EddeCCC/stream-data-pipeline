@@ -1,0 +1,50 @@
+version: 2
+
+sources:
+  - name: wikimedia
+    schema: main
+    tables:
+      - name: recent_changes_raw
+        description: "Wikimedia recent change events unedited"
+        columns:
+          - name: id
+            description: "The ID for the change provided by Wikimedia"
+            tests:
+              - not_null
+              - unique
+          - name: type
+            description: "The type of change"
+            tests:
+              - not_null
+              - accepted_values:
+                  values: ['categorize', 'edit', 'new', 'log']
+          - name: title
+            description: "The title of the changed page"
+            tests:
+              - not_null
+          - name: title_url
+            description: "The URL of the changed page"
+            tests:
+              - not_null
+          - name: user
+            description: "The user name who changed the page"
+            tests:
+              - not_null
+          - name: bot
+            description: "True, if the user is a bot"
+            tests:
+              - not_null
+          - name: date
+            description: "The date of the change"
+            tests:
+              - not_null
+          - name: time
+            description: "The time of the change"
+            tests:
+              - not_null
+          - name: timestamp
+            description: "The timestamp for the change provided by Wikimedia"
+            tests:
+              - not_null
+          - name: comment
+            description: "Comment to the change"
