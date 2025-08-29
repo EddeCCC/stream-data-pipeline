@@ -1,0 +1,10 @@
+apiVersion: 1
+
+datasources:
+  - name: DuckDB
+    type: motherduck-duckdb-datasource
+    access: proxy
+    isDefault: true
+    editable: true
+    jsonData:
+      path: /usr/share/grafana/custom/wikimedia.duckdb

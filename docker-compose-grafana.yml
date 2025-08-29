@@ -1,0 +1,15 @@
+services:
+  grafana:
+    image: grafana/grafana:12.1.0-ubuntu
+    container_name: grafana
+    environment:
+      - GF_PANELS_DISABLE_SANITIZE_HTML=TRUE
+      - GF_SECURITY_ADMIN_PASSWORD=demo
+      - GF_PATHS_PROVISIONING=/usr/share/grafana/custom/
+      - GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=motherduck-duckdb-datasource
+      - GF_INSTALL_PLUGINS=https://github.com/motherduckdb/grafana-duckdb-datasource/releases/download/v0.3.1/motherduck-duckdb-datasource-0.3.1.zip;motherduck-duckdb-datasource
+    volumes:
+      - ./grafana:/usr/share/grafana/custom/
+      - ./data/warehouse/wikimedia.duckdb:/usr/share/grafana/custom/wikimedia.duckdb
+    ports:
+      - "3000:3000"

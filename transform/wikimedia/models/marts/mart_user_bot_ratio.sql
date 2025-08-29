@@ -6,8 +6,8 @@ WITH counts AS (
 )
 
 SELECT
-    human_edits,
-    bot_edits,
+    CAST(human_edits as INTEGER) as human_edits,
+    CAST(bot_edits as INTEGER) as bot_edits,
     CASE
         WHEN bot_edits = 0 THEN 0
         ELSE CAST(human_edits AS DOUBLE) / bot_edits

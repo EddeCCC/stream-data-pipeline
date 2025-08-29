@@ -1,7 +1,7 @@
 # Stream Data Pipeline
 
 Showcase for ELT data pipelines with streaming data via Kafka & Spark as well as
-DuckDB, dbt, Apache Airflow and Superset.
+DuckDB, dbt, Apache Airflow and Grafana.
 
 The data is provided by [Wikimedia](https://wikitech.wikimedia.org/wiki/Event_Platform/EventStreams_HTTP_Service).
 
@@ -13,7 +13,7 @@ pip install -r requirements.txt
 
 ## Commands
 
-Start Kafka Streaming: `docker compose up`
+Start Kafka Streaming: `docker compose -f docker-compose-kafka.yml up`
 
 Start Data Extraction: `./extract_data.sh`
 
@@ -23,3 +23,4 @@ Transform Data: `dbt run --project-dir transform/wikimedia --profiles-dir transf
 
 Data Tests: `dbt test --project-dir transform/wikimedia --profiles-dir transform/wikimedia --profile wikimedia`
 
+Start Dashboard: `docker compose -f docker-compose-grafana.yml up`
