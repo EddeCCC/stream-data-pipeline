@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 1,
+  "id": 2,
   "links": [],
   "panels": [
     {
@@ -29,14 +29,40 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
           },
           "custom": {
-            "align": "auto",
-            "cellOptions": {
-              "type": "auto"
+            "axisBorderShow": true,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
             },
-            "inspect": false
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "mappings": [],
           "thresholds": {
@@ -63,16 +89,17 @@
       },
       "id": 1,
       "options": {
-        "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
         },
-        "showHeader": true
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
       },
       "pluginVersion": "12.1.0",
       "targets": [
@@ -83,9 +110,9 @@
             "uid": "P9EB6AA68509EF776"
           },
           "editorMode": "code",
-          "format": 1,
+          "format": 0,
           "rawQuery": true,
-          "rawSql": "SELECT make_timestamp(time) as time, change_type, CAST(SUM(count) as VARCHAR) as count FROM wikimedia.main_marts.mart_changes_over_time GROUP BY time, change_type",
+          "rawSql": "SELECT \r\n  to_timestamp(time) as time, \r\n  change_type, \r\n  count as number\r\nFROM wikimedia.main_marts.mart_changes_over_time \r\n",
           "refId": "A",
           "sql": {
             "columns": [
@@ -113,7 +140,33 @@
         }
       ],
       "title": "Changes Over Time (WIP)",
-      "type": "table"
+      "transformations": [
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
+              {
+                "dateFormat": "",
+                "destinationType": "time",
+                "targetField": "time"
+              },
+              {
+                "destinationType": "number",
+                "targetField": "number"
+              }
+            ],
+            "fields": {}
+          }
+        },
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "/^number(.*)$/",
+            "renamePattern": "$1"
+          }
+        }
+      ],
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -451,12 +504,11 @@
     "list": []
   },
   "time": {
-    "from": "2025-08-29T13:55:37.723Z",
-    "to": "2025-08-29T14:25:37.723Z"
+    "from": "now-15m",
+    "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "Wikimedia Recent Changes",
-  "uid": "f52faaac-4a5f-4a53-b929-5ade3ce521d0",
-  "version": 16
+  "version": 1
 }
