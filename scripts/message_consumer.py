@@ -1,13 +1,15 @@
 import time
+import os
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import from_json, col, from_unixtime, to_date, date_format
 from pyspark.sql.types import StructType, StringType, BooleanType, LongType, StructField
 from util.logger import logging as log
 
-KAFKA_BROKER = "localhost:29092"
+KAFKA_BROKER = os.getenv("KAFKA_BROKER", "localhost:29092")
+DATA_PATH = os.getenv("DATA_PATH", "../data/parquet/")
+OUTPUT_PATH = DATA_PATH + "wikimedia/"
+CHECKPOINT_PATH = DATA_PATH + "_checkpoints/"
 TOPIC = "wikimedia.recentchange"
-OUTPUT_PATH = "../data/parquet/wikimedia/"
-CHECKPOINT_PATH = "../data/parquet/_checkpoints/"
 
 spark = (SparkSession.builder
          .appName("kafka-stream")

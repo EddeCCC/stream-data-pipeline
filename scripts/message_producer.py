@@ -1,13 +1,15 @@
 import time
-from sseclient import SSEClient
+import os
 import requests
 import json
+from sseclient import SSEClient
 from confluent_kafka import Producer
 from util.logger import logging as log
 
 STREAM_URL = "https://stream.wikimedia.org/v2/stream/recentchange"
-KAFKA_BROKER = "localhost:29092"
+KAFKA_BROKER = os.getenv("KAFKA_BROKER", "localhost:29092")
 TOPIC = "wikimedia.recentchange"
+
 producer = Producer({
     "bootstrap.servers": KAFKA_BROKER
 })
