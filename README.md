@@ -24,3 +24,13 @@ Transform Data: `dbt run --project-dir transform/wikimedia --profiles-dir transf
 Data Tests: `dbt test --project-dir transform/wikimedia --profiles-dir transform/wikimedia --profile wikimedia`
 
 Start Dashboard: `docker compose -f docker-compose-grafana.yml up`
+
+Set up Apache Airflow (Does not work on Windows):
+
+`cd airflow`
+
+`pip install -r requirements.txt -c constraints.txt`
+
+`export AIRFLOW_HOME=<project-dir>/airflow`
+
+`airflow standalone`
